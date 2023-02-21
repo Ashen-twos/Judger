@@ -111,7 +111,12 @@ void run(struct config *_config, struct result *_result) {
             _result->memory = resource_usage.ru_maxrss * 1024;
 
             if (_result->exit_code != 0) {
-                _result->result = RUNTIME_ERROR;
+                if(_result->exit_code == 114) {
+                    _result->result = WRONG_ANSWER;
+                }
+                else {
+                    _result->result = RUNTIME_ERROR;
+                }
             }
 
             if (_result->signal == SIGSEGV) {
